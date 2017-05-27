@@ -17,7 +17,6 @@ public:
 
 	ShipOne &operator=(const ShipOne &rhs);
 
-private:
 };
 
 

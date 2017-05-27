@@ -6,7 +6,7 @@
 struct loc{
     unsigned int    x;
     unsigned int    y;
-}
+};
 
 class Enemy : public Bullet
 {
@@ -23,11 +23,17 @@ public:
         virtual loc     getloc(loc _loc);
 
 protected:
+
         virtual unsigned int    _hp = 0;
         virtual unsigned int    _maxhp = 0;
         virtual int             _shipvelocity = 0;
         virtual std::string     _shipsprite[3] = 0;
         virtual loc             _loc = 0;
+        virtual unsigned int    _hp;
+        virtual unsigned int    _maxhp;
+        virtual int             _shipvelocity;
+        virtual std::string     _shipsprite[3];
+
 };
 
 #endif
