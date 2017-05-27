@@ -8,7 +8,7 @@
 #include "obstacles.hpp"
 
 void	gameLoop(void);
-
+void	gameOver(int x, int y);
 
 
 #endif //RUSH00_GAMELOOP_HPP
