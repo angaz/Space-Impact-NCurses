@@ -1,5 +1,5 @@
-#ifndef ENEMY_H
-#define ENEMY_H
+#ifndef RUSH00_ENEMY_H
+#define RUSH00_ENEMY_H
 
 #include "Bullet.hpp"
 
@@ -18,14 +18,16 @@ public:
         Enemy   &operator=(Enemy const &rhs);
         virtual Bullet fire( void );
         virtual bool    collision(Bullet &bullet);
-        virtual loc move();
         virtual void takeDamage(unsigned int amount);
+        virtual void updateEnemy( void );
+        virtual loc     getloc(loc _loc);
 
 protected:
-        virtual unsigned int    _hp;
-        virtual unsigned int    _maxhp;
-        virtual int             _shipvelocity;
-        virtual std::string     _shipsprite[3];
+        virtual unsigned int    _hp = 0;
+        virtual unsigned int    _maxhp = 0;
+        virtual int             _shipvelocity = 0;
+        virtual std::string     _shipsprite[3] = 0;
+        virtual loc             _loc = 0;
 };
 
 #endif

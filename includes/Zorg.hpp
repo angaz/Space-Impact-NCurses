@@ -1,5 +1,5 @@
-#ifndef ZORG_H
-#define ZORG_H
+#ifndef RUSH00_ZORG_H
+#define RUSH00_ZORG_H
 
 #include "Enemy.hpp"
 
