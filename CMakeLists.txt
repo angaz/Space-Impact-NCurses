@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5.1)
-project(rush00)
+project(ft_retro)
 
 set(CMAKE_CXX_STANDARD 98)
 
@@ -11,5 +11,6 @@ include_directories(${CURSES_INCLUDE_DIR})
 
 set(SOURCE_FILES src/main.cpp)
 include_directories(includes)
+
 add_executable(ft_retro ${SOURCE_FILES})
 target_link_libraries(ft_retro ${CURSES_LIBRARIES})
