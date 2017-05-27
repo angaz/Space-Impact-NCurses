@@ -19,9 +19,9 @@ public:
         Bullet   &operator=(Bullet const &rhs);
 
 protected:
-        unsigned int    _damage;
-        int             _velocity;
-        std::string     _sprite[3];
+        virtual unsigned int    _damage;
+        virtual int             _velocity;
+        virtual std::string     _sprite[1];
 };
 
 #endif

@@ -23,6 +23,7 @@ public:
 protected:
         virtual unsigned int    _hp;
         virtual unsigned int    _maxhp;
+        virtual std::string     _ship[3];
 };
 
 #endif
