@@ -16,7 +16,7 @@ public:
         virtual ~Enemy() = 0;
 
         Enemy   &operator=(Enemy const &rhs);
-        virtual Bullet fire(unsigned int dmg, int vlc, unsigned int x, unsigned int y, std::string sprite);
+        virtual Bullet fire( void );
         virtual loc move();
         virtual void takeDamage(unsigned int amount);
 
