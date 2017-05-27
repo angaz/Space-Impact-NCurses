@@ -1,8 +1,9 @@
 #include <iostream>
 #include <ncurses.h>
 
+#include "gameLoop.hpp"
+
 void initGame();
-void gameLoop();
 void exitGame();
 
 int main() {
@@ -13,22 +14,12 @@ int main() {
 	return 0;
 }
 
-void gameLoop() {
-	int x, y;
-	getmaxyx(stdscr, y, x);
-
-	while (int c = wgetch(stdscr) != 27) {
-		move(x/2, y/2);
-		printw("You pressed %c", c);
-		refresh();
-	}
-}
-
 void initGame() {
 	initscr();
-	cbreak();
+	raw();
 	keypad(stdscr, true);
 	noecho();
+	curs_set(false);
 }
 
 void exitGame() {
