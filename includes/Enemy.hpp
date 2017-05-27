@@ -1,7 +1,7 @@
 #ifndef ENEMY_H
 #define ENEMY_H
 
-#include "../Bullet.hpp"
+#include "Bullet.hpp"
 
 struct loc{
     unsigned int    x;
@@ -17,13 +17,15 @@ public:
 
         Enemy   &operator=(Enemy const &rhs);
         virtual Bullet fire( void );
+        virtual bool    collision(Bullet &bullet);
         virtual loc move();
         virtual void takeDamage(unsigned int amount);
 
 protected:
         virtual unsigned int    _hp;
         virtual unsigned int    _maxhp;
-        virtual std::string     _ship[3];
+        virtual int             _shipvelocity;
+        virtual std::string     _shipsprite[3];
 };
 
 #endif
