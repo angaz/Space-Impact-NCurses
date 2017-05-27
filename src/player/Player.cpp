@@ -42,9 +42,9 @@ void Player::die() {
 	delete(this);
 }
 
-//Bullet* Player::fire() {
-//	return new Bullet(velocity = positive)
-//}
+Bullet* Player::fire() {
+	return new Bullet(this->_damage, this->bVelocity, this->_gunLoc);
+}
 
 loc Player::getLoc() {
 	return this->_loc;
@@ -66,6 +66,7 @@ virtual bool isCollided(Bullet &bullet) {
 	for(unsigned int i = 0; i < this->_height; i++) {
 		for (int j = 0; j < this->_length; ++j) {
 			if (this->loc.y + i == bullet->loc.y && this->loc.x + j == bullet->loc.x) {
+				this->takeDamage(1);
 				return true;
 			}
 		}
@@ -77,6 +78,7 @@ virtual bool isCollided(Enemy &enemy){
 	for(unsigned int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; ++j) {
 			if (isPointOnShape(enemy.getLoc().x + j, enemy.getLoc().y + i) || isPointInShape(enemy.getLoc().x + j, enemy.getLoc().y + i)){
+				this->takeDamage(1);
 				return true;
 			}
 		}

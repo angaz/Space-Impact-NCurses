@@ -8,21 +8,22 @@
 struct loc{
     unsigned int    x;
     unsigned int    y;
-}
+};
 
 class Bullet : public Update{
 public:
-        virtual Enemy() = 0;
-        virtual Enemy(Enemy const &src) = 0;
-        virtual ~Enemy() = 0;
+		virtual Bullet();
+        virtual Bullet(unsigned int damage, int velocity, loc loc);
+        virtual Bullet(Bullet const &src);
+        virtual ~Bullet();
 
         Bullet   &operator=(Bullet const &rhs);
 
 protected:
-        virtual unsigned int    _damage = 0;
-        virtual int             _bulletvelocity = 0;
-        virtual std::string     _bulletsprite[1] = 0;
-        virtual loc             _loc = 0;
+        virtual unsigned int    _damage;
+        virtual int             _velocity;
+        virtual std::string     _sprite[3];
+        virtual loc             _loc;
 };
 
 #endif

@@ -1,15 +1,22 @@
 #include "Bullet.hpp"
 
-virtual Bullet::Bullet() = 0;
-{
-    default;
+virtual Bullet::Bullet(){
 }
-virtual Bullet::Enemy(Enemy const &src) = 0
-{
+
+virtual Bullet::Bullet(unsigned int damage, int velocity, loc loc){
+	this->_damage = damage;
+	this->_velocity = velocity;
+	this->loc = loc;
+	this->_sprite = {"/ \\",
+					 "[O]",
+					 "\\ /"};
+}
+
+virtual Bullet::Bullet(Bullet const &src){
     *this = src;
     return (this);
 }
-virtual ~Bullet::Bullet() = 0;
+virtual ~Bullet::Bullet()
 {
     std::cout << "Deconstructor Called";
 }

@@ -43,6 +43,8 @@ protected:
 	virtual unsigned int _height = 0;
 	virtual loc _loc = 0;
 	virtual std::string* _sprite = 0;
+	virtual loc _gunLoc = 0;
+	virtual int _bVelocity = 0;
 
 	virtual bool isPointOnShape(int x, int y);
 	virtual bool isPointInShape(int x, int y);
