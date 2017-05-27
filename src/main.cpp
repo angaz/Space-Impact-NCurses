@@ -17,6 +17,7 @@ int main() {
 void initGame() {
 	initscr();
 	raw();
+	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	noecho();
 	curs_set(false);
