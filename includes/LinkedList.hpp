@@ -5,7 +5,7 @@ template <class T> class LinkedList {
 public:
 	LinkedList();
 	LinkedList(const T &data);
-	LinkedList(const T &data, LinkedList<T> &previous);
+//	LinkedList(const T &data, LinkedList<T> &previous);
 //	LinkedList(const T &data, LinkedList<T> &next, LinkedList<T> &previous);
 	~LinkedList();
 

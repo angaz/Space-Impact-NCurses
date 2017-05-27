@@ -11,11 +11,11 @@ LinkedList<T>::LinkedList(const T &data) :
 	_next(nullptr),
 	_previous(nullptr) {}
 
-template<class T>
+/*template<class T>
 LinkedList<T>::LinkedList(const T &data, LinkedList<T> &previous) :
 	_data(&data),
 	_next(nullptr),
-	_previous(&previous) {}
+	_previous(&previous) {}*/
 
 /*template<class T>
 LinkedList<class T>::LinkedList(const T &data, LinkedList<T> &next, LinkedList<T> &previous) :
