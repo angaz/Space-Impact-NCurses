@@ -24,10 +24,10 @@ virtual Bullet Enemy::fire( void )
 {
     Bullet bullet = new Bullet;
     bullet._damage = this->_damage;
-    bullet._velocity = this->_velocity;
-    bullet._sprite = this->_sprite;
-    bullet.BulletLoc.x = this.BulletLoc.x;
-    bullet.BulletLoc.y = this.BulletLoc.y;
+    bullet._bulletvelocity = this->_bulletvelocity;
+    bullet._bulletsprite = this->_bulletsprite;
+    bullet.loc.x = this.loc.x;
+    bullet.loc.y = this.loc.y;
     return (bullet);
 }
 virtual loc Enemy::move()
@@ -38,4 +38,12 @@ virtual loc Enemy::move()
 virtual void Enemy::takeDamage(unsigned int amount)
 {
     this->_hp = _hp - amount;
+}
+
+virtual bool    collision(Bullet &bullet)
+{
+    if ((bullet.loc.x == this->loc.x) && (bullet.loc.y == this->loc.y))
+        return true;
+    else
+        return false;
 }

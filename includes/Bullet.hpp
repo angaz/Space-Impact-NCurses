@@ -5,7 +5,7 @@
 #include <iostream>
 #include <ncurses.h>
 
-struct BulletLoc{
+struct loc{
     unsigned int    x;
     unsigned int    y;
 }
@@ -20,8 +20,8 @@ public:
 
 protected:
         virtual unsigned int    _damage;
-        virtual int             _velocity;
-        virtual std::string     _sprite[1];
+        virtual int             _bulletvelocity;
+        virtual std::string     _bulletsprite[1];
 };
 
 #endif

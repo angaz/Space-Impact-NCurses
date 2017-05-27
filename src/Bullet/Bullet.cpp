@@ -1,3 +1,4 @@
+#include "Bullet.hpp"
 
 virtual Bullet::Bullet() = 0;
 {
@@ -16,6 +17,6 @@ virtual ~Bullet::Bullet() = 0;
 Bullet   &operator=(Bullet const &rhs)
 {
     this->_damage = rhs._damage;
-    this->_velocity = rhs._velocity;
-    this->_sprite = rhs._sprite;
+    this->_bulletvelocity = rhs._bulletvelocity;
+    this->_bulletsprite = rhs._bulletsprite;
 }
