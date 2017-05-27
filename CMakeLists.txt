@@ -9,7 +9,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
 find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 
-set(SOURCE_FILES src/main.cpp src/gameLoop.cpp src/actions.cpp src/obstacles.cpp src/Bullet.cpp src/Enemy.cpp src/Zorg.cpp)
+set(SOURCE_FILES src/main.cpp src/gameLoop.cpp src/actions.cpp src/obstacles.cpp src/Bullet.cpp src/Enemy.cpp src/Zorg.cpp src/Player.cpp src/ShipOne.cpp)
 include_directories(includes)
 
 add_executable(ft_retro ${SOURCE_FILES})
