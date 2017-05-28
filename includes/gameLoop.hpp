@@ -20,7 +20,7 @@ void 	addBullet(Bullet **bullet, Bullet *newBullet);
 void 	updateBullets(Bullet **bullet);
 void	drawEnemies(Enemy **enemy);
 void 	addEnemy(Enemy **enemy, Enemy *newEnemy);
-void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score);
+void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player &player);
 bool 	updatePlayerCollision(Player &player, Bullet **bullet, Enemy **enemy, unsigned int &lives);
 
 

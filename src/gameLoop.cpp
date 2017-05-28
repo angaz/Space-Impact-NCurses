@@ -9,8 +9,6 @@ void gameLoop(void) {
 	unsigned int		score = 0;
 	unsigned int		lives = 3;
 	bool 				pause = false;
-//	LinkedList<Bullet>	*bullets = new LinkedList<Bullet>;
-//	LinkedList<Enemy>	*enemies = new LinkedList<Enemy>;
 	Bullet				**bullets = new Bullet*[1000];
 	Enemy				**enemies = new Enemy*[1000];
 	Player				*player = new ShipOne(1, 16);
@@ -33,9 +31,11 @@ void gameLoop(void) {
 
 				// Update obstacles and entities
 				updateObstacles(tick, scene);
-				if (action == actions::DOWN)
+				drawObstacles(scene);
+
+				if (action == actions::DOWN && player->getLoc().y < 21)
 					player->moveDown();
-				else if (action == actions::UP)
+				else if (action == actions::UP && player->getLoc().y > 7)
 					player->moveUp();
 				else if (action == actions::FIRE)
 					addBullet(bullets, player->fire());
@@ -44,7 +44,7 @@ void gameLoop(void) {
 					addEnemy(enemies, new Zorg(128, (tick % 12) + 8));
 				}
 
-				updateEnemies(enemies, bullets, score);
+				updateEnemies(enemies, bullets, score, *player);
 				updateBullets(bullets);
 				if (updatePlayerCollision(*player, bullets, enemies, lives)) {
 					gameOver(x, y);
@@ -56,7 +56,7 @@ void gameLoop(void) {
 				mvprintw(y - 1, 0, "SCORE %6u        LIVES %u", score, lives);
 				mvprintw(y - 1, x - 25, "%16d %8s", tick, getActionString(action));
 
-				drawObstacles(scene);
+
 				drawPlayer(*player);
 				drawEnemies(enemies);
 				drawBullets(bullets);
@@ -179,7 +179,7 @@ void 	addEnemy(Enemy **enemy, Enemy *newEnemy) {
 	enemy[--i] = newEnemy;
 }
 
-void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score) {
+void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player &player) {
 	for (int i = 0; i < 1000; i++) {
 		if (enemy[i]) {
 			enemy[i]->updateEnemy();
@@ -192,6 +192,7 @@ void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score) {
 					bullets[j] = NULL;
 
 					score += 20;
+					mvprintw(player.getLoc().y - 1, player.getLoc().x + 1, "+20");
 					break;
 				}
 			}
