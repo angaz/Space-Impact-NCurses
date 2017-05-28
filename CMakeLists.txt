@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.5.1)
 project(ft_retro)
+set(CC /usr/bin/clang)
+set(CXX /usr/bin/clang++)
+
 
 set(CMAKE_CXX_STANDARD 98)
 

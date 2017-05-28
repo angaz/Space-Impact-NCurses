@@ -54,7 +54,6 @@ void gameLoop(void) {
 
 				// Draw info, obstacles, and entities
 				mvprintw(y - 1, 0, "SCORE %6u        LIVES %u", score, lives);
-				mvprintw(y - 1, x - 25, "%16d %8s", tick, getActionString(action));
 
 
 				drawPlayer(*player);

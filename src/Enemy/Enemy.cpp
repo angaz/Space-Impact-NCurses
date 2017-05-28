@@ -17,6 +17,8 @@ Enemy   &Enemy::operator=(Enemy const &rhs)
 {
     this->_hp = rhs._hp;
     this->_maxhp = rhs._maxhp;
+
+	return *this;
 }
 //Send details of the bullet, most importantly the location
 Bullet& Enemy::fire(void) const

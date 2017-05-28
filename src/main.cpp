@@ -41,12 +41,12 @@ void initGame() {
 	123456789012345678901
 	         1         2
 */
-	int plus = 0;
+	int plus = 8;
 	bool neg = false;
 	for (int i = 0; i < 16; i++) {
 		if (neg) plus++;
 		else plus--;
-		if (i % 8) neg = !neg;
+		if (!(i % 8)) neg = !neg;
 
 		clear();
 		mvprintw( 0 + plus, 0, "        ___          ");
