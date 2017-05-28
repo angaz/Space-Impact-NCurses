@@ -5,7 +5,7 @@ int 	randPercent() {
 }
 
 chtype 	*generateObstacles(unsigned int tick) {
-	srand(tick * static_cast<unsigned int>(time(NULL)));
+	//srand((tick * static_cast<unsigned int>(time(NULL))));
 
 	int gen = randPercent();
 

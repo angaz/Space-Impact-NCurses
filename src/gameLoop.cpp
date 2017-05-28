@@ -26,7 +26,7 @@ void gameLoop(void) {
 		} else if (!pause) {
 			tick++;
 
-			if (!(tick % 2)) {
+			if (!(tick % 4)) {
 				clear();
 
 				// Update obstacles and entities
@@ -44,10 +44,14 @@ void gameLoop(void) {
 					addEnemy(enemies, new Zorg(128, (tick % 12) + 8));
 				}
 
-				updateEnemies(enemies, bullets, score, *player);
+				if (updateEnemies(enemies, bullets, score, *player)) {
+					gameOver();
+					break;
+				}
+
 				updateBullets(bullets);
 				if (updatePlayerCollision(*player, bullets, enemies, lives)) {
-					gameOver(x, y);
+					gameOver();
 					break;
 				}
 
@@ -73,10 +77,10 @@ void gameLoop(void) {
 			123456789012345678901234567890123456
 					 1         2         3
 			*/
-			mvprintw(y/2-1, x/2-18, " ____   __   _  _  ____  ____  ____");
-			mvprintw(y/2-0, x/2-18, "(  _ \\ / _\\ / )( \\/ ___)(  __)(    \\");
-			mvprintw(y/2+1, x/2-18, " ) __//    \\) \\/ (\\___ \\ ) _)  ) D (");
-			mvprintw(y/2+2, x/2-18, "(__)  \\_/\\_/\\____/(____/(____)(____/");
+			mvprintw(32/2-1, 128/2-18, " ____   __   _  _  ____  ____  ____");
+			mvprintw(32/2-0, 128/2-18, "(  _ \\ / _\\ / )( \\/ ___)(  __)(    \\");
+			mvprintw(32/2+1, 128/2-18, " ) __//    \\) \\/ (\\___ \\ ) _)  ) D (");
+			mvprintw(32/2+2, 128/2-18, "(__)  \\_/\\_/\\____/(____/(____)(____/");
 		}
 
 		refresh();
@@ -87,16 +91,16 @@ void gameLoop(void) {
 		} else if (c == 112) { // keycode P
 			pause = !pause;
 		} else if (c == 120) { // keycode X
-			gameOver(x, y);
+			gameOver();
 			break;
 		}
 
 		getAction(c, action);
-		usleep(15625); //64 TPS
+		usleep(16666); //64 TPS
 	}
 }
 
-void	gameOver(int x, int y) {
+void	gameOver() {
 	/*
 	  ___   __   _  _  ____     __   _  _  ____  ____ 	1
 	 / __) / _\ ( \/ )(  __)   /  \ / )( \(  __)(  _ \	2
@@ -106,13 +110,32 @@ void	gameOver(int x, int y) {
 	         1         2         3         4         5
 	*/
 
-	mvprintw(y/2-1, x/2-25, "  ___   __   _  _  ____     __   _  _  ____  ____ ");
-	mvprintw(y/2-0, x/2-25, " / __) / _\\ ( \\/ )(  __)   /  \\ / )( \\(  __)(  _ \\");
-	mvprintw(y/2+1, x/2-25, "( (_ \\/    \\/ \\/ \\ ) _)   (  O )\\ \\/ / ) _)  )   /");
-	mvprintw(y/2+2, x/2-25, " \\___/\\_/\\_/\\_)(_/(____)   \\__/  \\__/ (____)(__\\_)");
+	mvprintw(32/2-1, 128/2-25, "  ___   __   _  _  ____     __   _  _  ____  ____ ");
+	mvprintw(32/2-0, 128/2-25, " / __) / _\\ ( \\/ )(  __)   /  \\ / )( \\(  __)(  _ \\");
+	mvprintw(32/2+1, 128/2-25, "( (_ \\/    \\/ \\/ \\ ) _)   (  O )\\ \\/ / ) _)  )   /");
+	mvprintw(32/2+2, 128/2-25, " \\___/\\_/\\_/\\_)(_/(____)   \\__/  \\__/ (____)(__\\_)");
 
 	refresh();
 	usleep(2500000);
+
+	clear();
+
+	/*
+	  ___  ____  ____    ____  _  _  __  ____  ____  _  _ 	1
+	 / __)(  __)(_  _)  / ___)/ )( \(  )(  __)(_  _)( \/ )	2
+	( (_ \ ) _)   )(    \___ \\ /\ / )(  ) _)   )(   )  / 	3
+	 \___/(____) (__)   (____/(_/\_)(__)(__)   (__) (__/  	4
+	123456789012345678901234567890123456789012345678901234
+	         1         2         3         4         5
+	 */
+
+	mvprintw(32/2-1, 128/2-27, "  ___  ____  ____    ____  _  _  __  ____  ____  _  _ ");
+	mvprintw(32/2-0, 128/2-27, " / __)(  __)(_  _)  / ___)/ )( \\(  )(  __)(_  _)( \\/ )");
+	mvprintw(32/2+1, 128/2-27, "( (_ \\ ) _)   )(    \\___ \\\\ /\\ / )(  ) _)   )(   )  / ");
+	mvprintw(32/2+2, 128/2-27, " \\___/(____) (__)   (____/(_/\\_)(__)(__)   (__) (__/  ");
+
+	refresh();
+	usleep(15265 * 16);
 }
 
 void 	drawPlayer(Player &player) {
@@ -123,22 +146,12 @@ void 	drawPlayer(Player &player) {
 	}
 }
 
-//void	drawBullets(LinkedList<Bullet> &bulletList) {
-//	Bullet	*bullet = &bulletList.getData();
-//
-//	while (bullet != NULL) {
-//		loc	bulletLoc = bullet->getLoc();
-//		mvprintw(bulletLoc.y, bulletLoc.x, bullet->getSprite().c_str());
-//	}
-//}
-
 void 	drawBullets(Bullet **bullet) {
 	for (int i = 0; i < 1000; i++) {
 		if (bullet[i] != NULL) {
 			loc	bulletLoc = bullet[i]->getLoc();
 			if (bulletLoc.x <= 128)
 				mvaddch(bulletLoc.y, bulletLoc.x, ACS_CKBOARD);
-//				mvprintw(bulletLoc.y, bulletLoc.x, /*bullet[i]->getSprite().c_str()*/);
 		}
 	}
 }
@@ -178,7 +191,7 @@ void 	addEnemy(Enemy **enemy, Enemy *newEnemy) {
 	enemy[--i] = newEnemy;
 }
 
-void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player &player) {
+bool 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player &player) {
 	for (int i = 0; i < 1000; i++) {
 		if (enemy[i]) {
 			enemy[i]->updateEnemy();
@@ -195,8 +208,17 @@ void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player
 					break;
 				}
 			}
+
+			if (enemy[i] && enemy[i]->getLoc().x < 0) {
+				//delete enemy[i];
+				//enemy[i] = NULL;
+
+				return true;
+			}
 		}
 	}
+
+	return false;
 }
 
 bool 	updatePlayerCollision(Player &player, Bullet **bullet, Enemy **enemy, unsigned int &lives) {
