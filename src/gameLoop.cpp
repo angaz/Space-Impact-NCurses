@@ -1,14 +1,19 @@
 #include "gameLoop.hpp"
 
 void gameLoop(void) {
-	int 			x, y;
-	int 			c;
-	unsigned int	tick = 0;
-	unsigned int	action = actions::NONE;
-	chtype 			**scene;
-	unsigned int	score = 0;
-	unsigned int	lives = 3;
-	bool 			pause = false;
+	int 				x, y;
+	int 				c;
+	unsigned int		tick = 0;
+	unsigned int		action = actions::NONE;
+	chtype 				**scene;
+	unsigned int		score = 0;
+	unsigned int		lives = 3;
+	bool 				pause = false;
+//	LinkedList<Bullet>	*bullets = new LinkedList<Bullet>;
+//	LinkedList<Enemy>	*enemies = new LinkedList<Enemy>;
+	Bullet				**bullets = new Bullet*[1000];
+	Enemy				**enemies = new Enemy*[1000];
+	Player				*player = new ShipOne(1, 16);
 
 	scene = generateInitialObstacles();
 	drawObstacles(scene);
@@ -23,17 +28,38 @@ void gameLoop(void) {
 		} else if (!pause) {
 			tick++;
 
-			if (!(tick % 16)) {
+			if (!(tick % 2)) {
 				clear();
 
 				// Update obstacles and entities
 				updateObstacles(tick, scene);
+				if (action == actions::DOWN)
+					player->moveDown();
+				else if (action == actions::UP)
+					player->moveUp();
+				else if (action == actions::FIRE)
+					addBullet(bullets, player->fire());
+
+				if (!(tick % 152)) {
+					addEnemy(enemies, new Zorg(128, (tick % 12) + 8));
+				}
+
+				updateEnemies(enemies, bullets, score);
+				updateBullets(bullets);
+				if (updatePlayerCollision(*player, bullets, enemies, lives)) {
+					gameOver(x, y);
+					break;
+				}
 
 
 				// Draw info, obstacles, and entities
 				mvprintw(y - 1, 0, "SCORE %6u        LIVES %u", score, lives);
 				mvprintw(y - 1, x - 25, "%16d %8s", tick, getActionString(action));
+
 				drawObstacles(scene);
+				drawPlayer(*player);
+				drawEnemies(enemies);
+				drawBullets(bullets);
 
 
 				// Reset action to stop multiple actions per frame
@@ -61,7 +87,7 @@ void gameLoop(void) {
 			break;
 		} else if (c == 112) { // keycode P
 			pause = !pause;
-		} else if (c == 120 || lives == 0) { // keycode X
+		} else if (c == 120) { // keycode X
 			gameOver(x, y);
 			break;
 		}
@@ -88,4 +114,105 @@ void	gameOver(int x, int y) {
 
 	refresh();
 	usleep(2500000);
+}
+
+void 	drawPlayer(Player &player) {
+	std::string	*sprite = player.getSprite();
+	loc			playerLoc = player.getLoc();
+	for(int i = 0; i < player.getHeight(); i++) {
+		mvprintw(playerLoc.y + i, playerLoc.x, sprite[i].c_str());
+	}
+}
+
+//void	drawBullets(LinkedList<Bullet> &bulletList) {
+//	Bullet	*bullet = &bulletList.getData();
+//
+//	while (bullet != NULL) {
+//		loc	bulletLoc = bullet->getLoc();
+//		mvprintw(bulletLoc.y, bulletLoc.x, bullet->getSprite().c_str());
+//	}
+//}
+
+void 	drawBullets(Bullet **bullet) {
+	for (int i = 0; i < 1000; i++) {
+		if (bullet[i] != NULL) {
+			loc	bulletLoc = bullet[i]->getLoc();
+			if (bulletLoc.x <= 128)
+				mvaddch(bulletLoc.y, bulletLoc.x, ACS_CKBOARD);
+//				mvprintw(bulletLoc.y, bulletLoc.x, /*bullet[i]->getSprite().c_str()*/);
+		}
+	}
+}
+
+void 	addBullet(Bullet **bullet, Bullet *newBullet) {
+	int i = 0;
+	while (bullet[i++]) {}
+
+	bullet[--i] = newBullet;
+}
+
+void 	updateBullets(Bullet **bullet) {
+	for (int i = 0; i < 1000; i++) {
+		if (bullet[i] != NULL)
+			bullet[i]->update();
+	}
+}
+
+void	drawEnemies(Enemy **enemy) {
+	for (int i = 0; i < 1000; i++) {
+		if (enemy[i] != NULL) {
+			loc enemyLoc = enemy[i]->getLoc();
+			std::string *sprite = enemy[i]->getSprite();
+
+			for (unsigned int j = 0; j < enemy[i]->getHeight(); j++) {
+				mvprintw(enemyLoc.y + j, enemyLoc.x, sprite[j].c_str());
+			}
+		}
+	}
+}
+
+void 	addEnemy(Enemy **enemy, Enemy *newEnemy) {
+	int i = 0;
+
+	while (enemy[i++]) {}
+
+	enemy[--i] = newEnemy;
+}
+
+void 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score) {
+	for (int i = 0; i < 1000; i++) {
+		if (enemy[i]) {
+			enemy[i]->updateEnemy();
+
+			for (int j = 0; j < 1000; j++) {
+				if (bullets[j] && enemy[i]->collision(*bullets[j])) {
+					delete enemy[i];
+					enemy[i] = NULL;
+					delete bullets[j];
+					bullets[j] = NULL;
+
+					score += 20;
+					break;
+				}
+			}
+		}
+	}
+}
+
+bool 	updatePlayerCollision(Player &player, Bullet **bullet, Enemy **enemy, unsigned int &lives) {
+	for (int i = 0; i < 1000; i++) {
+		if (bullet[i] && player.isCollided(*bullet[i])) {
+			lives--;
+		}
+
+		if (!lives) return true;
+
+		if (enemy[i] && player.isCollided(*enemy[i])) {
+			lives--;
+		}
+
+		if (!lives) return true;
+	}
+
+	return false;
 }

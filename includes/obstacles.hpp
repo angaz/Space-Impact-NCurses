@@ -7,6 +7,7 @@
 
 chtype 	*generateObstacles(unsigned int tick);
 chtype	**generateInitialObstacles();
+int 	randPercent();
 void	updateObstacles(unsigned int tick, chtype **obstacles);
 void 	drawObstacles(chtype **obstacles);
 

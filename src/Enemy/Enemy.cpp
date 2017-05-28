@@ -19,10 +19,10 @@ Enemy   &Enemy::operator=(Enemy const &rhs)
     this->_maxhp = rhs._maxhp;
 }
 //Send details of the bullet, most importantly the location
-Bullet& Enemy::fire( void )
+Bullet& Enemy::fire(void) const
 {
     Bullet *bullet = new Bullet(this->_damage, this->_bVelocity, this->_bLoc);
-    return (*bullet);
+    return *bullet;
 }
 
 void Enemy::takeDamage(unsigned int amount)
@@ -36,31 +36,36 @@ Add death if Angus doesn't implement;
 */
 bool    Enemy::collision(Bullet &bullet)
 {
-    if ((bullet._loc.x == (this->_loc.x)) && (bullet._loc.y == this->_loc.y))
-    {
-        this->_hp -= bullet._damage;
-        return true;
-    }
-    else if ((bullet._loc.x == (this->_loc.x)) && (bullet._loc.y == this->_loc.y + 1))
-    {
-        this->_hp -= bullet._damage;
-        return true;
-    }
-    else if ((bullet._loc.x == (this->_loc.x)) && (bullet._loc.y == this->_loc.y + 2))
-    {
-        this->_hp -= bullet._damage;
-        return true;
-    }
-    else
-        return false;
+    loc				bulletLoc = bullet.getLoc();
+	unsigned int	bulletDamage = bullet.getDamage();
+
+	for (int i = 0; i < this->_length; i++) {
+		for (int j = 0; j < this->_height; j++) {
+			if ((bulletLoc.x == this->_loc.x + i) && (bulletLoc.y == this->_loc.y + j)) {
+				this->_hp -= bulletDamage;
+
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
-loc     Enemy::getloc(loc _loc){
-    return (this->_loc);
+loc     Enemy::getLoc() const {
+    return this->_loc;
 }
 
-loc   Enemy::updateEnemy( void )
+loc   Enemy::updateEnemy(void)
 {
     this->_loc.x += this->_shipvelocity;
     return this->_loc;
+}
+
+std::string *Enemy::getSprite() const {
+	return this->_shipsprite;
+}
+
+unsigned int Enemy::getHeight() const {
+	return this->_height;
 }

@@ -12,17 +12,21 @@ ShipOne::ShipOne(unsigned int locX, unsigned int locY) {
 	this->_gunLoc.x = this->_loc.x + this->_length - 1;
 	this->_gunLoc.y = this->_loc.y + + 1;
 	this->_bVelocity = 3;
-	this->_sprite = {">=\\",
-					 "==]",
-					 ">=/"};
-
-	std::cout << "ShipOne constructed";
-};
+	this->_sprite = this->setSprite();
+}
 
 ShipOne::ShipOne(const ShipOne &src) {
 	*this = src;
-};
+}
 
-ShipOne::~ShipOne() {
-	std::cout << "ShipOne destructed";
-};
+ShipOne::~ShipOne() {}
+
+std::string* ShipOne::setSprite() {
+	std::string	*sprite = new std::string[3];
+
+	sprite[0] = ">=\\";
+	sprite[1] = "==]";
+	sprite[2] = ">=/";
+
+	return sprite;
+}

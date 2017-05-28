@@ -2,7 +2,7 @@
 #define RUSH00_SHIPONE_H
 
 #include <iostream>
-#inlcude <string>
+#include <string>
 
 #include "Player.hpp"
 
@@ -17,8 +17,8 @@ public:
 
 	~ShipOne();
 
-	ShipOne &operator=(const ShipOne &rhs);
-
+private:
+	std::string	*setSprite();
 };
 
 

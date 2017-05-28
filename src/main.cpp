@@ -1,6 +1,4 @@
-#include <iostream>
 #include <ncurses.h>
-
 #include "gameLoop.hpp"
 
 void initGame();
@@ -16,7 +14,7 @@ int main() {
 
 void initGame() {
 	initscr();
-	raw();
+	cbreak();
 	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	noecho();
@@ -24,7 +22,5 @@ void initGame() {
 }
 
 void exitGame() {
-	std::cout << "Exiting\n";
-
 	endwin();
 }

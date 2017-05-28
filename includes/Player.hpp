@@ -10,9 +10,9 @@
 class Player {
 
 public:
-	virtual Player() = 0;
-	virtual Player(const Player &src) = 0;
-	virtual ~Player() = 0;
+	Player();
+	Player(const Player &src);
+	virtual ~Player();
 	Player &operator=(const Player &rhs);
 
 	virtual void moveUp();
@@ -35,12 +35,14 @@ protected:
 	unsigned int _length;
 	unsigned int _height;
 	loc _loc;
-	std::string _sprite[];
+	std::string *_sprite;
 	loc _gunLoc;
 	int _bVelocity;
 
 	bool isPointOnShape(int x, int y);
 	bool isPointInShape(int x, int y);
+
+	virtual std::string	*setSprite() = 0;
 };
 
 

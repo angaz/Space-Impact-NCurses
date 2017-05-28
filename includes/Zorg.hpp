@@ -9,9 +9,12 @@ public:
         Zorg( void );
         Zorg(int x, int y);
         Zorg(Zorg const &src);
-        virtual ~Zorg( void );
+        virtual ~Zorg(void);
 
         Zorg   &operator=(Zorg const &rhs);
+
+private:
+	std::string	*setSprite();
 };
 
 #endif

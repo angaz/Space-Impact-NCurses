@@ -14,7 +14,7 @@ public:
 
 	LinkedList	&operator=(const LinkedList<T> &src);
 
-	T 				&getData();
+	T				&getData();
 	void 			add(const T &data);
 	LinkedList<T>	*next();
 	void 			setNext(LinkedList<T> &next);

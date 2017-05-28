@@ -12,19 +12,22 @@ struct loc {
 
 class Bullet {
 public:
-		virtual Bullet();
-        virtual Bullet(unsigned int damage, int velocity, loc loc);
-        virtual Bullet(Bullet const &src);
+		Bullet();
+        Bullet(unsigned int damage, int velocity, loc loc);
+        Bullet(Bullet const &src);
         virtual ~Bullet();
 
         Bullet   &operator=(Bullet const &rhs);
         virtual loc getLoc( void );
+	virtual unsigned int	getDamage(void);
+	virtual std::string		getSprite(void);
+	virtual void			update();
 
 protected:
 		unsigned int    _damage;
 		int             _velocity;
 		loc             _loc;
-        std::string 	_sprite[];
+        std::string 	_sprite;
 };
 
 #endif

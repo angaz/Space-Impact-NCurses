@@ -9,7 +9,7 @@ Player::Player(const Player &src) {
 Player::~Player() {
 }
 
-Player &operator=(const Player &rhs) {
+Player &Player::operator=(const Player &rhs) {
 	this->_hp = rhs._hp;
 	this->_maxHp = rhs._maxHp;
 	this->_damage = rhs._damage;
@@ -19,11 +19,13 @@ Player &operator=(const Player &rhs) {
 }
 
 void Player::moveDown() {
-	this->_loc.y -= 1;
+	this->_loc.y += 1;
+	this->_gunLoc.y += 1;
 }
 
 void Player::moveUp() {
-	this->_loc.y += 1;
+	this->_loc.y -= 1;
+	this->_gunLoc.y -= 1;
 }
 
 bool Player::takeDamage(unsigned int amount) {
@@ -72,9 +74,11 @@ bool Player::isCollided(Bullet &bullet) {
 }
 
 bool Player::isCollided(Enemy &enemy){
+	loc	enemyLoc = enemy.getLoc();
+
 	for(unsigned int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; ++j) {
-			if (isPointOnShape(enemy.getLoc().x + j, enemy.getLoc().y + i) || isPointInShape(enemy.getLoc().x + j, enemy.getLoc().y + i)){
+			if (isPointOnShape(enemyLoc.x + j, enemyLoc.y + i) || isPointInShape(enemyLoc.x + j, enemyLoc.y + i)){
 				this->takeDamage(1);
 				return true;
 			}
@@ -91,6 +95,8 @@ bool Player::isPointOnShape(int x, int y) {
 	if (y == this->_loc.y || y == this->_loc.y + this->_height - 1)
 		if (x < this->_loc.x && x > this->_loc.x + this->_length - 1)
 			return true;
+
+	return false;
 }
 
 bool Player::isPointInShape(int x, int y) {
