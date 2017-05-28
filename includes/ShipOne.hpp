@@ -11,6 +11,8 @@ class ShipOne: public Player {
 public:
 	ShipOne();
 
+	ShipOne(unsigned int locX, unsigned int locY);
+
 	ShipOne(const ShipOne &src);
 
 	~ShipOne();

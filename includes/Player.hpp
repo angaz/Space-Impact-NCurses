@@ -34,11 +34,8 @@ public:
 protected:
 	virtual unsigned int _hp = 0;
 	virtual unsigned int _maxHp = 0;
-	virtual unsigned int _nShots = 0;
 	virtual unsigned int _damage = 0;
-	virtual unsigned int _shotSpeed = 0;
 	virtual unsigned int _player = 0;
-	virtual unsigned int _moveSpeed = 0;
 	virtual unsigned int _length = 0;
 	virtual unsigned int _height = 0;
 	virtual loc _loc = 0;
