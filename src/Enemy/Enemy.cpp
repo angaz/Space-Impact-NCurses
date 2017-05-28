@@ -20,10 +20,11 @@ Enemy   &Enemy::operator=(Enemy const &rhs)
 
 	return *this;
 }
-//Send details of the bullet, most importantly the location
+
 Bullet& Enemy::fire(void) const
 {
-    Bullet *bullet = new Bullet(this->_damage, this->_bVelocity, this->_bLoc);
+	loc		bulletLoc = {this->_loc.x - 1, this->_loc.y + 1};
+    Bullet *bullet = new Bullet(this->_damage, this->_bVelocity, bulletLoc);
     return *bullet;
 }
 
@@ -31,11 +32,7 @@ void Enemy::takeDamage(unsigned int amount)
 {
     this->_hp -= amount;
 }
-/*Check if front of the bullet (bullet._loc.y) collides with either of the front most hitboxes of the ship (100,5)    -->***
-                                                                                                          (100,5 + 1)-->***
-                                                                                                          (100,5 + 2)-->***
-Add death if Angus doesn't implement;
-*/
+
 bool    Enemy::collision(Bullet &bullet)
 {
     loc				bulletLoc = bullet.getLoc();
@@ -43,7 +40,7 @@ bool    Enemy::collision(Bullet &bullet)
 
 	for (unsigned int i = 0; i < this->_length; i++) {
 		for (unsigned int j = 0; j < this->_height; j++) {
-			if ((static_cast<unsigned int>(bulletLoc.x) == (this->_loc.x + i)) && (static_cast<unsigned int>(bulletLoc.y) == this->_loc.y + j)) {
+			if ((bulletLoc.x == (this->_loc.x + i)) && (bulletLoc.y == (this->_loc.y + j))) {
 				this->_hp -= bulletDamage;
 
 				return true;

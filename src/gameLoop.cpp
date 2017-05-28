@@ -1,5 +1,7 @@
 #include "gameLoop.hpp"
 
+const unsigned int MAX_ENTITIES = 1000;
+
 void gameLoop(void) {
 	int 				x, y;
 	int 				c;
@@ -9,8 +11,8 @@ void gameLoop(void) {
 	unsigned int		score = 0;
 	unsigned int		lives = 3;
 	bool 				pause = false;
-	Bullet				**bullets = new Bullet*[1000];
-	Enemy				**enemies = new Enemy*[1000];
+	Bullet				**bullets = new Bullet*[MAX_ENTITIES];
+	Enemy				**enemies = new Enemy*[MAX_ENTITIES];
 	Player				*player = new ShipOne(1, 16);
 
 	scene = generateInitialObstacles();
@@ -147,7 +149,7 @@ void 	drawPlayer(Player &player) {
 }
 
 void 	drawBullets(Bullet **bullet) {
-	for (int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < MAX_ENTITIES; i++) {
 		if (bullet[i] != NULL) {
 			loc	bulletLoc = bullet[i]->getLoc();
 			if (bulletLoc.x <= 128)
@@ -164,7 +166,7 @@ void 	addBullet(Bullet **bullet, Bullet *newBullet) {
 }
 
 void 	updateBullets(Bullet **bullet) {
-	for (int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < MAX_ENTITIES; i++) {
 		if (bullet[i] != NULL)
 			bullet[i]->update();
 
@@ -176,7 +178,7 @@ void 	updateBullets(Bullet **bullet) {
 }
 
 void	drawEnemies(Enemy **enemy) {
-	for (int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < MAX_ENTITIES; i++) {
 		if (enemy[i] != NULL) {
 			loc enemyLoc = enemy[i]->getLoc();
 			std::string *sprite = enemy[i]->getSprite();
@@ -197,11 +199,11 @@ void 	addEnemy(Enemy **enemy, Enemy *newEnemy) {
 }
 
 bool 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player &player) {
-	for (int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < MAX_ENTITIES; i++) {
 		if (enemy[i]) {
 			enemy[i]->updateEnemy();
 
-			for (int j = 0; j < 1000; j++) {
+			for (unsigned int j = 0; j < MAX_ENTITIES; j++) {
 				if (bullets[j] && enemy[i]->collision(*bullets[j])) {
 					delete enemy[i];
 					enemy[i] = NULL;
@@ -221,8 +223,8 @@ bool 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player
 				return true;
 			}
 
-			if (randPercent() > 99) {
-				//addBullet(bullets, &enemy[i]->fire());
+			if (enemy[i] && randPercent() > 97) {
+				addBullet(bullets, &enemy[i]->fire());
 			}
 		}
 	}
@@ -231,7 +233,7 @@ bool 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player
 }
 
 bool 	updatePlayerCollision(Player &player, Bullet **bullet, Enemy **enemy, unsigned int &lives) {
-	for (int i = 0; i < 1000; i++) {
+	for (unsigned int i = 0; i < MAX_ENTITIES; i++) {
 		if (bullet[i] && player.isCollided(*bullet[i])) {
 			lives--;
 		}

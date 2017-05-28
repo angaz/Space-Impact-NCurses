@@ -77,8 +77,8 @@ bool Player::isCollided(Bullet &bullet) {
 bool Player::isCollided(Enemy &enemy){
 	loc	enemyLoc = enemy.getLoc();
 
-	for(unsigned int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; ++j) {
+	for(unsigned int i = 0; i < this->_height; i++) {
+		for (unsigned int j = 0; j < this->_length; ++j) {
 			if (isPointOnShape(enemyLoc.x + j, enemyLoc.y + i) || isPointInShape(enemyLoc.x + j, enemyLoc.y + i)){
 				this->takeDamage(1);
 				return true;

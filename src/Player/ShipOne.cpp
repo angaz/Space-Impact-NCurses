@@ -24,9 +24,9 @@ ShipOne::~ShipOne() {}
 std::string* ShipOne::setSprite() {
 	std::string	*sprite = new std::string[3];
 
-	sprite[0] = ">=\\";
-	sprite[1] = "==]";
-	sprite[2] = ">=/";
+	sprite[0] = "e[34m>=\\";
+	sprite[1] = "e[34m==]";
+	sprite[2] = "e[34m>=/";
 
 	return sprite;
 }

@@ -42,9 +42,9 @@ Zorg   &Zorg::operator=(Zorg const &rhs)
 std::string	*Zorg::setSprite() {
 	std::string	*sprite = new std::string[3];
 
-	sprite[0] = "---Ǝ";
-	sprite[1] = "---Ǝ";
-	sprite[2] = "---Ǝ";
+	sprite[0] = "-~~|";
+	sprite[1] = "-~~|";
+	sprite[2] = "-~~|";
 
 	return sprite;
 }
