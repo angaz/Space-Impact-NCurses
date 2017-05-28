@@ -1,29 +1,29 @@
 #include "Bullet.hpp"
 
-virtual Bullet::Bullet(){
+Bullet::Bullet(){
 }
 
-virtual Bullet::Bullet(unsigned int damage, int velocity, loc loc){
+Bullet::Bullet(unsigned int damage, int velocity, loc loc){
 	this->_damage = damage;
 	this->_velocity = velocity;
-	this->loc = loc;
-	this->_sprite = {"/ \\",
-					 "[O]",
-					 "\\ /"};
+	this->_loc = loc;
+	this->_sprite = {"o"};
 }
 
-virtual Bullet::Bullet(Bullet const &src){
+Bullet::Bullet(Bullet const &src){
     *this = src;
-    return (this);
 }
-virtual ~Bullet::Bullet()
+Bullet::~Bullet()
 {
     std::cout << "Deconstructor Called";
 }
 
+loc	Bullet::getLoc() {
+	return (this->_loc);
+}
 Bullet   &operator=(Bullet const &rhs)
 {
     this->_damage = rhs._damage;
-    this->_bulletvelocity = rhs._bulletvelocity;
-    this->_bulletsprite = rhs._bulletsprite;
+    this->_velocity = rhs._velocity;
+    this->_sprite = rhs._sprite;
 }

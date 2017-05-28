@@ -3,11 +3,6 @@
 
 #include "Bullet.hpp"
 
-struct loc{
-    unsigned int    x;
-    unsigned int    y;
-};
-
 class Enemy : public Bullet
 {
 public:
@@ -16,23 +11,24 @@ public:
         virtual ~Enemy() = 0;
 
         Enemy   &operator=(Enemy const &rhs);
-        virtual Bullet fire( void );
+        virtual Bullet& fire( void );
         virtual bool    collision(Bullet &bullet);
         virtual void takeDamage(unsigned int amount);
-        virtual void updateEnemy( void );
+        virtual loc updateEnemy( void );
         virtual loc     getloc(loc _loc);
 
 protected:
 
-        virtual unsigned int    _hp = 0;
-        virtual unsigned int    _maxhp = 0;
-        virtual int             _shipvelocity = 0;
-        virtual std::string     _shipsprite[3] = 0;
-        virtual loc             _loc = 0;
-        virtual unsigned int    _hp;
-        virtual unsigned int    _maxhp;
-        virtual int             _shipvelocity;
-        virtual std::string     _shipsprite[3];
+        loc             _loc;
+        unsigned int    _hp;
+        unsigned int    _maxhp;
+        int             _shipvelocity;
+        std::string     _shipsprite[];
+        int 			_bVelocity;
+        unsigned 		_damage;
+        loc				_bLoc;
+        unsigned int	_length;
+        unsigned int	_height;
 
 };
 

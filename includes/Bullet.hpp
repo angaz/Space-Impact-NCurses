@@ -5,12 +5,12 @@
 #include <iostream>
 #include <ncurses.h>
 
-struct loc{
-    unsigned int    x;
-    unsigned int    y;
+struct loc {
+    int    x;
+    int    y;
 };
 
-class Bullet : public Update{
+class Bullet {
 public:
 		virtual Bullet();
         virtual Bullet(unsigned int damage, int velocity, loc loc);
@@ -18,12 +18,13 @@ public:
         virtual ~Bullet();
 
         Bullet   &operator=(Bullet const &rhs);
+        virtual loc getLoc( void );
 
 protected:
-        virtual unsigned int    _damage;
-        virtual int             _velocity;
-        virtual std::string     _sprite[3];
-        virtual loc             _loc;
+		unsigned int    _damage;
+		int             _velocity;
+		loc             _loc;
+        std::string 	_sprite[];
 };
 
 #endif

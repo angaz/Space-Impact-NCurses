@@ -12,11 +12,8 @@ Player::~Player() {
 Player &operator=(const Player &rhs) {
 	this->_hp = rhs._hp;
 	this->_maxHp = rhs._maxHp;
-	this->_nShots = rhs._nShots;
 	this->_damage = rhs._damage;
-	this->_shotSpeed = rhs._shotSpeed;
 	this->_player = rhs._player;
-	this->_moveSpeed = rhs._moveSpeed;
 
 	return *this;
 }
@@ -29,7 +26,7 @@ void Player::moveUp() {
 	this->_loc.y += 1;
 }
 
-void Player::takeDamage(unsigned int amount) {
+bool Player::takeDamage(unsigned int amount) {
 	this->_hp -= amount;
 	if (this->_hp == 0) {
 		this->die();
@@ -43,7 +40,7 @@ void Player::die() {
 }
 
 Bullet* Player::fire() {
-	return new Bullet(this->_damage, this->bVelocity, this->_gunLoc);
+	return new Bullet(this->_damage, this->_bVelocity, this->_gunLoc);
 }
 
 loc Player::getLoc() {
@@ -54,18 +51,18 @@ std::string* Player::getSprite() {
 	return this->_sprite;
 }
 
-virtual unsigned int getLength(){
+unsigned int Player::getLength(){
 	return this->_length;
 }
 
-virtual unsigned int getHeight() {
+unsigned int Player::getHeight() {
 	return this->_height;
 }
 
-virtual bool isCollided(Bullet &bullet) {
+bool Player::isCollided(Bullet &bullet) {
 	for(unsigned int i = 0; i < this->_height; i++) {
 		for (int j = 0; j < this->_length; ++j) {
-			if (this->loc.y + i == bullet->loc.y && this->loc.x + j == bullet->loc.x) {
+			if (this->_loc.y + i == bullet.getLoc().y && this->_loc.x + j == bullet.getLoc().x) {
 				this->takeDamage(1);
 				return true;
 			}
@@ -74,7 +71,7 @@ virtual bool isCollided(Bullet &bullet) {
 	return false;
 }
 
-virtual bool isCollided(Enemy &enemy){
+bool Player::isCollided(Enemy &enemy){
 	for(unsigned int i = 0; i < 3; i++) {
 		for (int j = 0; j < 3; ++j) {
 			if (isPointOnShape(enemy.getLoc().x + j, enemy.getLoc().y + i) || isPointInShape(enemy.getLoc().x + j, enemy.getLoc().y + i)){

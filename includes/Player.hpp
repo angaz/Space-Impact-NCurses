@@ -5,11 +5,7 @@
 #include <iostream>
 
 #include "Bullet.hpp"
-
-struct loc {
-	unsigned int x;
-	unsigned int y;
-};
+#include "Enemy.hpp"
 
 class Player {
 
@@ -21,8 +17,8 @@ public:
 
 	virtual void moveUp();
 	virtual void moveDown();
-	virtual void fire();
-	virtual bool takeDamage(int amount);
+	virtual Bullet* fire();
+	virtual bool takeDamage(unsigned int amount);
 	virtual void die();
 	virtual loc getLoc();
 	virtual std::string* getSprite();
