@@ -14,7 +14,7 @@ int main() {
 
 void initGame() {
 	initscr();
-	cbreak();
+	raw();
 	nodelay(stdscr, true);
 	keypad(stdscr, true);
 	noecho();
@@ -46,7 +46,7 @@ void initGame() {
 	for (int i = 0; i < 16; i++) {
 		if (neg) plus++;
 		else plus--;
-		if (!(i % 8)) neg = !neg;
+		if (!(i % 4)) neg = !neg;
 
 		clear();
 		mvprintw( 0 + plus, 0, "        ___          ");
@@ -68,7 +68,7 @@ void initGame() {
 		mvprintw(16 + plus, 0, "        `======/     ");
 
 		refresh();
-		usleep(15625 * 16); //64 TPS
+		usleep(15625 * 8); //64 TPS
 	}
 
 }
