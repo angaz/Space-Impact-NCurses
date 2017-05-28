@@ -6,16 +6,22 @@ LinkedList<T>::LinkedList() :
 	_next(NULL),
 	_previous(NULL) {}
 
+
 template<class T>
 LinkedList<T>::LinkedList(const T &data) :
 	_data(&data),
 	_next(NULL),
 	_previous(NULL) {}
 
+
 /*template<class T>
 LinkedList<T>::LinkedList(const T &data, LinkedList<T> &previous) :
 	_data(&data),
+<<<<<<< HEAD
 	_next(NULL),
+=======
+	_next(nullptr),
+>>>>>>> 9084363e55ddbebf476e4b39a848b33137f7180a
 	_previous(&previous) {}*/
 
 /*template<class T>
