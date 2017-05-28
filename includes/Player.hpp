@@ -32,19 +32,19 @@ public:
 	virtual bool isCollided(Enemy &enemy);
 
 protected:
-	virtual unsigned int _hp = 0;
-	virtual unsigned int _maxHp = 0;
-	virtual unsigned int _damage = 0;
-	virtual unsigned int _player = 0;
-	virtual unsigned int _length = 0;
-	virtual unsigned int _height = 0;
-	virtual loc _loc = 0;
-	virtual std::string* _sprite = 0;
-	virtual loc _gunLoc = 0;
-	virtual int _bVelocity = 0;
+	unsigned int _hp;
+	unsigned int _maxHp;
+	unsigned int _damage;
+	unsigned int _player;
+	unsigned int _length;
+	unsigned int _height;
+	loc _loc;
+	std::string _sprite[];
+	loc _gunLoc;
+	int _bVelocity;
 
-	virtual bool isPointOnShape(int x, int y);
-	virtual bool isPointInShape(int x, int y);
+	bool isPointOnShape(int x, int y);
+	bool isPointInShape(int x, int y);
 };
 
 

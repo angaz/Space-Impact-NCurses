@@ -13,7 +13,7 @@ ShipOne::ShipOne(unsigned int locX, unsigned int locY) {
 	this->_gunLoc.y = this->_loc.y + + 1;
 	this->_bVelocity = 3;
 	this->_sprite = {">=\\",
-					 "==]"
+					 "==]",
 					 ">=/"};
 
 	std::cout << "ShipOne constructed";
@@ -21,7 +21,6 @@ ShipOne::ShipOne(unsigned int locX, unsigned int locY) {
 
 ShipOne::ShipOne(const ShipOne &src) {
 	*this = src;
-	return this;
 };
 
 ShipOne::~ShipOne() {
