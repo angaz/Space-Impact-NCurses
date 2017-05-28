@@ -1,20 +1,21 @@
 #include "LinkedList.hpp"
 
-LinkedList::LinkedList() :
-	_data(nullptr),
-	_next(nullptr),
-	_previous(nullptr) {}
+template <class T>
+LinkedList<T>::LinkedList() :
+	_data(NULL),
+	_next(NULL),
+	_previous(NULL) {}
 
 template<class T>
 LinkedList<T>::LinkedList(const T &data) :
 	_data(&data),
-	_next(nullptr),
-	_previous(nullptr) {}
+	_next(NULL),
+	_previous(NULL) {}
 
 /*template<class T>
 LinkedList<T>::LinkedList(const T &data, LinkedList<T> &previous) :
 	_data(&data),
-	_next(nullptr),
+	_next(NULL),
 	_previous(&previous) {}*/
 
 /*template<class T>
@@ -23,10 +24,11 @@ LinkedList<class T>::LinkedList(const T &data, LinkedList<T> &next, LinkedList<T
 	_next(&next),
 	_previous(&previous) {}*/
 
-LinkedList::~LinkedList() {
-	if (this->_previous != nullptr)
+template <class T>
+LinkedList<T>::~LinkedList() {
+	if (this->_previous != NULL)
 		this->_previous->setNext(*this->_next);
-	if (this->_next != nullptr)
+	if (this->_next != NULL)
 		this->_next->setPrevious(*this->_previous);
 
 	delete this->_data;
@@ -41,19 +43,14 @@ template<class T>
 void LinkedList<T>::add(const T &data) {
 	LinkedList<T>	*newNode = new LinkedList(data);
 
-	if (this->_next == nullptr) {
-		this->_next = newNode;
-		newNode->setPrevious(*this);
-	} else {
-		LinkedList<T> *node = this->_next;
+	LinkedList<T> *node = this;
 
-		while(node->next() != nullptr) {
-			node = node->next();
-		}
-
-		node->setNext(*newNode);
-		newNode->setPrevious(*node);
+	while(node->next() != NULL) {
+		node = node->next();
 	}
+
+	node->setNext(*newNode);
+	newNode->setPrevious(*node);
 }
 
 template<class T>
@@ -76,3 +73,11 @@ void LinkedList<T>::setPrevious(LinkedList<T> &previous) {
 	this->_previous = &previous;
 }
 
+template <class T>
+LinkedList<T>	&LinkedList<T>::operator=(const LinkedList<T> &src) {
+	this->_data = src._data;
+	this->_next = src._next;
+	this->_previous = src._previous;
+
+	return *this;
+}
