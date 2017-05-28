@@ -1,4 +1,3 @@
-
 #include "gameLoop.hpp"
 
 void gameLoop(void) {
@@ -17,7 +16,11 @@ void gameLoop(void) {
 	while (true) {
 		getmaxyx(stdscr, y, x);
 
-		if (!pause) {
+		if (y < 32 || x < 128) {
+			clear();
+			mvprintw(0, 0, "Window needs to be at least 32 chars high and 128 chars long");
+			mvprintw(y - 1, x - 7, "%3d %3d", x, y);
+		} else if (!pause) {
 			tick++;
 
 			if (!(tick % 16)) {
@@ -48,11 +51,7 @@ void gameLoop(void) {
 		refresh();
 
 		c = getch();
-		if (c == KEY_RESIZE || y < 32 || x < 128) {
-			clear();
-			mvprintw(0, 0, "Window needs to be at least 32 chars high and 128 chars long");
-			mvprintw(y - 1, x - 7, "%3d %3d", x, y);
-		} else if (c == 113) { // keycode Q
+		if (c == 113) { // keycode Q
 			break;
 		} else if (c == 112) { // keycode P
 			pause = !pause;
