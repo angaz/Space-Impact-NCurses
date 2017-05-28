@@ -41,9 +41,9 @@ bool    Enemy::collision(Bullet &bullet)
     loc				bulletLoc = bullet.getLoc();
 	unsigned int	bulletDamage = bullet.getDamage();
 
-	for (int i = 0; i < this->_length; i++) {
-		for (int j = 0; j < this->_height; j++) {
-			if ((bulletLoc.x == this->_loc.x + i) && (bulletLoc.y == this->_loc.y + j)) {
+	for (unsigned int i = 0; i < this->_length; i++) {
+		for (unsigned int j = 0; j < this->_height; j++) {
+			if ((static_cast<unsigned int>(bulletLoc.x) == (this->_loc.x + i)) && (static_cast<unsigned int>(bulletLoc.y) == this->_loc.y + j)) {
 				this->_hp -= bulletDamage;
 
 				return true;

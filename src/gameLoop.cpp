@@ -30,7 +30,7 @@ void gameLoop(void) {
 				clear();
 
 				// Update obstacles and entities
-				updateObstacles(tick, scene);
+				updateObstacles(scene);
 				drawObstacles(scene);
 
 				if (action == actions::DOWN && player->getLoc().y < 21)
@@ -40,8 +40,8 @@ void gameLoop(void) {
 				else if (action == actions::FIRE)
 					addBullet(bullets, player->fire());
 
-				if (!(tick % 152)) {
-					addEnemy(enemies, new Zorg(128, (tick % 12) + 8));
+				if (!(tick % 76)) {
+					addEnemy(enemies, new Zorg(128, static_cast<unsigned int>((randPercent() % 12) + 8)));
 				}
 
 				if (updateEnemies(enemies, bullets, score, *player)) {
@@ -121,18 +121,18 @@ void	gameOver() {
 	clear();
 
 	/*
-	  ___  ____  ____    ____  _  _  __  ____  ____  _  _ 	1
-	 / __)(  __)(_  _)  / ___)/ )( \(  )(  __)(_  _)( \/ )	2
-	( (_ \ ) _)   )(    \___ \\ /\ / )(  ) _)   )(   )  / 	3
-	 \___/(____) (__)   (____/(_/\_)(__)(__)   (__) (__/  	4
-	123456789012345678901234567890123456789012345678901234
-	         1         2         3         4         5
+	  ___  ____  ____    ____   ___  _  _  _  _  __  ____  ____  _  _ 	1
+	 / __)(  __)(_  _)  / ___) / __)/ )( \/ )( \(  )(  __)(_  _)( \/ )	2
+	( (_ \ ) _)   )(    \___ \( (__ ) __ (\ /\ / )(  ) _)   )(   )  / 	3
+	 \___/(____) (__)   (____/ \___)\_)(_/(_/\_)(__)(__)   (__) (__/  	4
+	123456789012345678901234567890123456789012345678901234567890123456
+	         1         2         3         4         5         6
 	 */
 
-	mvprintw(32/2-1, 128/2-27, "  ___  ____  ____    ____  _  _  __  ____  ____  _  _ ");
-	mvprintw(32/2-0, 128/2-27, " / __)(  __)(_  _)  / ___)/ )( \\(  )(  __)(_  _)( \\/ )");
-	mvprintw(32/2+1, 128/2-27, "( (_ \\ ) _)   )(    \\___ \\\\ /\\ / )(  ) _)   )(   )  / ");
-	mvprintw(32/2+2, 128/2-27, " \\___/(____) (__)   (____/(_/\\_)(__)(__)   (__) (__/  ");
+	mvprintw(32/2-1, 128/2-33, "  ___  ____  ____    ____   ___  _  _  _  _  __  ____  ____  _  _ ");
+	mvprintw(32/2-0, 128/2-33, " / __)(  __)(_  _)  / ___) / __)/ )( \\/ )( \\(  )(  __)(_  _)( \\/ )");
+	mvprintw(32/2+1, 128/2-33, "( (_ \\ ) _)   )(    \\___ \\( (__ ) __ (\\ /\\ / )(  ) _)   )(   )  / ");
+	mvprintw(32/2+2, 128/2-33, " \\___/(____) (__)   (____/ \\___)\\_)(_/(_/\\_)(__)(__)   (__) (__/  ");
 
 	refresh();
 	usleep(15265 * 16);
@@ -141,7 +141,7 @@ void	gameOver() {
 void 	drawPlayer(Player &player) {
 	std::string	*sprite = player.getSprite();
 	loc			playerLoc = player.getLoc();
-	for(int i = 0; i < player.getHeight(); i++) {
+	for(unsigned int i = 0; i < player.getHeight(); i++) {
 		mvprintw(playerLoc.y + i, playerLoc.x, sprite[i].c_str());
 	}
 }
@@ -167,6 +167,11 @@ void 	updateBullets(Bullet **bullet) {
 	for (int i = 0; i < 1000; i++) {
 		if (bullet[i] != NULL)
 			bullet[i]->update();
+
+		if (bullet[i] && (bullet[i]->getLoc().x <= 0 || bullet[i]->getLoc().x >= 128)) {
+			delete bullet[i];
+			bullet[i] = NULL;
+		}
 	}
 }
 
@@ -209,11 +214,15 @@ bool 	updateEnemies(Enemy **enemy, Bullet **bullets, unsigned int &score, Player
 				}
 			}
 
-			if (enemy[i] && enemy[i]->getLoc().x < 0) {
+			if (enemy[i] && enemy[i]->getLoc().x == 0) {
 				//delete enemy[i];
 				//enemy[i] = NULL;
 
 				return true;
+			}
+
+			if (randPercent() > 99) {
+				//addBullet(bullets, &enemy[i]->fire());
 			}
 		}
 	}

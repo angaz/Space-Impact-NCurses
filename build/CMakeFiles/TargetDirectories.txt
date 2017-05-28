@@ -1,3 +1,0 @@
-/nfs/zfs-student-6/users/adippena/Documents/cpp-bootcamp/rush00/build/CMakeFiles/rebuild_cache.dir
-/nfs/zfs-student-6/users/adippena/Documents/cpp-bootcamp/rush00/build/CMakeFiles/edit_cache.dir
-/nfs/zfs-student-6/users/adippena/Documents/cpp-bootcamp/rush00/build/CMakeFiles/ft_retro.dir

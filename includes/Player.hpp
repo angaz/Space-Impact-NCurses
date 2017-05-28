@@ -39,8 +39,8 @@ protected:
 	loc _gunLoc;
 	int _bVelocity;
 
-	bool isPointOnShape(int x, int y);
-	bool isPointInShape(int x, int y);
+	bool isPointOnShape(unsigned int x, unsigned int y);
+	bool isPointInShape(unsigned int x, unsigned int y);
 
 	virtual std::string	*setSprite() = 0;
 };

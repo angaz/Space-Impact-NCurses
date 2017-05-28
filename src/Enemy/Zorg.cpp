@@ -3,7 +3,7 @@
 Zorg::Zorg( void ) {
 }
 
-Zorg::Zorg(int x, int y)
+Zorg::Zorg(unsigned int x, unsigned int y)
 {
     this->_maxhp = 100;
     this->_hp = 100;
@@ -42,9 +42,9 @@ Zorg   &Zorg::operator=(Zorg const &rhs)
 std::string	*Zorg::setSprite() {
 	std::string	*sprite = new std::string[3];
 
-	sprite[0] = "abcd";
-	sprite[1] = "efgh";
-	sprite[2] = "ijkl";
+	sprite[0] = "---Ǝ";
+	sprite[1] = "---Ǝ";
+	sprite[2] = "---Ǝ";
 
 	return sprite;
 }

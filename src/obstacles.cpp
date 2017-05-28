@@ -4,9 +4,7 @@ int 	randPercent() {
 	return static_cast<int>((static_cast<double>(rand()) / static_cast<double>(RAND_MAX)) * 100);
 }
 
-chtype 	*generateObstacles(unsigned int tick) {
-	//srand((tick * static_cast<unsigned int>(time(NULL))));
-
+chtype 	*generateObstacles() {
 	int gen = randPercent();
 
 	chtype	*obstacles = new chtype[16];
@@ -26,20 +24,20 @@ chtype	**generateInitialObstacles() {
 	chtype	**obstacles = new chtype*[128];
 
 	for (unsigned int i = 0; i < 128; i++) {
-		obstacles[i] = generateObstacles(i);
+		obstacles[i] = generateObstacles();
 	}
 
 	return obstacles;
 }
 
-void	updateObstacles(unsigned int tick, chtype **obstacles) {
+void	updateObstacles(chtype **obstacles) {
 	delete obstacles[0];
 
 	for(int i = 0; i < 127; i++) {
 		obstacles[i] = obstacles[i + 1];
 	}
 
-	obstacles[127] = generateObstacles(tick);
+	obstacles[127] = generateObstacles();
 }
 
 void 	drawObstacles(chtype **obstacles) {

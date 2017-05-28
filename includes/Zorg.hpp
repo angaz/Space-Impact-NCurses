@@ -7,7 +7,7 @@ class Zorg : public Enemy
 {
 public:
         Zorg( void );
-        Zorg(int x, int y);
+        Zorg(unsigned int x, unsigned int y);
         Zorg(Zorg const &src);
         virtual ~Zorg(void);
 

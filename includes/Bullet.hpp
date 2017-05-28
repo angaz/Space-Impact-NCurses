@@ -6,8 +6,8 @@
 #include <ncurses.h>
 
 struct loc {
-    int    x;
-    int    y;
+    unsigned int    x;
+    unsigned int    y;
 };
 
 class Bullet {
