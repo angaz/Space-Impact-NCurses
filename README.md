@@ -3,8 +3,8 @@ Atempt at a Space Impact game (from the old Nokia phones).
 Created over a weekend for a school project.
 
 ### Compile
-* CMake is required:
-  * `sudo apt install cmake` or `brew install cmake`
+* CMake and clang++ are required:
+  * `sudo apt install cmake clang++` or `brew install cmake clang++`
 * `mkdir build`
 * `cd build`
 * `cmake ..`
