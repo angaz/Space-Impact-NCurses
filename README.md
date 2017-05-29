@@ -1,6 +1,6 @@
 # Space-Impact-NCurses
-Atempt at a Space Impact game (from the old Nokia phones).
-Created over a weekend for a school project.
+Atempt at a Space Impact game (from the old Nokia phones), played in the terminal window (over SSH on a server half way across the world if you're brave enough).
+Created over a weekend with 2 other friends for a school project.
 
 ### Compile
 * CMake and clang++ are required:
